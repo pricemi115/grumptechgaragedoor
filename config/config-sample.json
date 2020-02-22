@@ -1,0 +1,67 @@
+{
+  "bridge": {
+    "name": "GrumpTech Homebridge-GarageDoor",
+    "username": "31:32:76:1F:72:36",
+    "port": 51828,
+    "pin": "000-00-000"
+  },
+
+  "description": "Platform for the Grumpy's Garage Door System",
+
+  "platforms": [
+    {
+      "platform" : "GrumpTechGarageSystemPlatform",
+      "name" : "homebridge-GrumpTechGarageSystem",
+      "system" : {
+        "gpio_mode" : "BCM",
+        "heartbeat": 4,
+        "doors" : [
+          {
+            "name": "EvilDoor",
+            "state_indicator" : 3,
+            "control_request" : 5,
+            "manual_control_reqest" : 6,
+            "detect_sensors" : [
+              {
+                "id" : "Opening sensor",
+                "class" : "SonarSensor",
+                "function" : "OPEN",
+                "config" : {
+                  "polling_interval" : 5.0,
+                  "trigger_out" : 26,
+                  "echo_in": 21,
+                  "distance_threshold_change_notification" : 0.08,
+                  "detect_threshold_min" : 0.0,
+                  "detect_threshold_max" : 0.3
+                }
+              },
+              {
+                "id" : "Alt-Closing sensor",
+                "class" : "SonarSensor",
+                "function" : "CLOSE-INACTIVE",
+                "config" : {
+                  "polling_interval" : 5.0,
+                  "trigger_out" : -1,
+                  "echo_in" : -1,
+                  "distance_threshold_change_notification" : 0.08,
+                  "detect_threshold_min" : 3.5,
+                  "detect_threshold_max" : 4.0
+                }
+              },
+              {
+                "id" : "Closing prox sensor",
+                "class" : "ProximitySwitchSensor",
+                "function" : "CLOSE",
+                "config" : {
+                  "detect_in" : 2,
+                  "debounce_time" : 2.5,
+                  "mode": true
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

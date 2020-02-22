@@ -1,0 +1,43 @@
+{
+  "name": "homebridge-grumptechgaragedoor",
+  "version": "1.0.1",
+  "description": "Homebridge platform plugin for Grumpy's Garage Door: https://github.com/pricemi15/grumptechgaragedoor",
+  "license": "MIT",
+  "keywords": [
+    "homebridge-plugin",
+    "garage",
+    "door",
+    "raspberry",
+    "gpio"
+  ],
+  "config_info": {
+    "remarks": "The 'plugin' and 'platform' names MUST match the names called out in the 'platforms' section of the active config.json file.",
+    "plugin": "homebridge-GrumpTechGarageSystem",
+    "platfrom": "GrumpTechGarageSystemPlatform"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pricemi15/grumptechgaragedoor.git"
+  },
+  "bugs": {
+    "url": "http://github.com/pricemi15/grumptechgaragedoor/issues"
+  },
+  "engines": {
+    "node": ">=10.15.3",
+    "homebridge": ">=0.4.50"
+  },
+  "main": "dist/garagedoor.js",
+  "files": [
+    "dist/*",
+    "config/*"
+  ],
+  "dependencies": {
+    "rpi-gpio": "^2.1.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-json": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "rollup": "^1.31.1"
+  }
+}
