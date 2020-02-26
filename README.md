@@ -8,3 +8,8 @@ _GrumpTech Garage Door_ supports both a proximity switch and [sonar based sensor
 
 ## Installation
 This module is not intended to provide an extensible _API_ and, as such is best installed globally.
+
+> npm install -g grumptechgaragedoor
+
+##  Configuration 
+The plug-in allows for user specified configuration of the digital input/output lines to use as well as the type of sensors to use for detecting the door.
