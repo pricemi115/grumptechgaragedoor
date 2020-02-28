@@ -12,4 +12,10 @@ This module is not intended to provide an extensible _API_ and, as such is best 
 > npm install -g grumptechgaragedoor
 
 ##  Configuration 
-The plug-in allows for user specified configuration of the digital input/output lines to use as well as the type of sensors to use for detecting the door.
+The plug-in allows for user specified configuration of the digital input/output lines to use as well as the type of sensors to use for detecting the door. The *config_sample.json* file located in *./config* shows an example of many of the user configurable settings.
+
+### Bridge
+> username: Identifier in the form of a  globally-unique colon-delimited EUI-48 multicast [MAC](https://en.wikipedia.org/wiki/MAC_address "MAC Address") address. (xx:xx:xx:xx:xx:xx)
+
+### Platforms/Platform
+>
