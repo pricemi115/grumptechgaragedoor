@@ -15,13 +15,13 @@ This module is not intended to provide an extensible _API_ and, as such is best 
 The plug-in allows for user specified configuration of the digital input/output lines to use as well as the type of sensors to use for detecting the door. The *config_sample.json* file located in *./config* shows an example of many of the user configurable settings.
 
 ### Bridge
-> username: Identifier in the form of a  globally-unique colon-delimited EUI-48 multicast [MAC](https://en.wikipedia.org/wiki/MAC_address "MAC Address") address. (xx:xx:xx:xx:xx:xx)
+> **username**: Identifier in the form of a  globally-unique colon-delimited EUI-48 multicast [MAC](https://en.wikipedia.org/wiki/MAC_address "MAC Address") address. (xx:xx:xx:xx:xx:xx)
 
 ### Platforms/Platform
-> platform: Identifier for the name of the Homebridge platform. Must match the text in the *config_info/platform* entry of the package.json file. Recommended to leave as-is.
+> **platform**: Identifier for the name of the Homebridge platform. Must match the text in the *config_info/platform* entry of the package.json file. Recommended to leave as-is.
 
-> name: Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file. Recommended to leave as-is.
+> **name**: Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file. Recommended to leave as-is.
 #### system
-> gpio_mode: Specify the mode for identifying & accessing the digital input/output pins on the Raspberry Pi.  Values: BCM, 
+> **gpio_mode**: Specify the mode for identifying & accessing the digital input/output pins on the Raspberry Pi.  Values: BCM, 
 
-> heartbeat: The digital output pin used to toggle a heartbeat LED. Values: any valid pin on the RPi.
+> **heartbeat**: The digital output pin used to toggle a heartbeat LED. Values: any valid pin on the RPi.
