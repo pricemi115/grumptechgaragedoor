@@ -18,9 +18,9 @@ The plug-in allows for user specified configuration of the digital input/output 
 > username: Identifier in the form of a  globally-unique colon-delimited EUI-48 multicast [MAC](https://en.wikipedia.org/wiki/MAC_address "MAC Address") address. (xx:xx:xx:xx:xx:xx)
 
 ### Platforms/Platform
-> platform: Identifier for the name of the Homebridge platform. Must match the name in the package.json file. Recommended to leave as-is.
+> platform: Identifier for the name of the Homebridge platform. Must match the text in the *config_info/platform* entry of the package.json file. Recommended to leave as-is.
 
-> name: Identifier for the name of the Homebridge plug-in. Must match the name in the package.json file. Recommended to leave as-is.
+> name: Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file. Recommended to leave as-is.
 #### system
 > gpio_mode: Specify the mode for identifying & accessing the digital input/output pins on the Raspberry Pi.  Values: BCM, 
 
