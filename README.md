@@ -22,11 +22,11 @@ Value(s): MAC Address in the form (xx:xx:xx:xx:xx:xx)
 An array of platforms supported/published by the bridge. Currently, there is only one platform for this plugin.
 > **platform**:
 Identifier for the name of the Homebridge platform. Must match the text in the *config_info/platform* entry of the package.json file.  
-Value(s): Any string  
+Value(s): Any valid non-null string.  
 *Recommended to leave as-is.*  
 > **name**:
 Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file.  
-Value(s): Any string  
+Value(s): Any valid non-null string.  
 *Recommended to leave as-is.*
 #### System
 Settings used to define & configure the garage door system.
@@ -52,12 +52,13 @@ Value(s): Any valid non-null string.
 > **manual_control_reqest**:
 
 ##### Detection Sensors
-An array of sensors used to detect the state of the door. The plug-in only functionally supports one sensor to detect the door opening and one to detect closing, but additional sensors can be specified even though not active, which can be helpful during development & debug.
+An array of sensors used to detect the state of the door. The plug-in only functionally supports two active sensors. One sensor to detect the door opening and another to detect closing. Additional sensors can be specified even though not active, which can be helpful during development & debug.
 > **id**:
 > **class**:
 > **function**:
 ###### Sensor Configuration
 A collection of configuration settings appropriate for the sensor classification specified.  
+
 Sonar Sensors  
 > **polling_interval**:
 > **trigger_out**:
@@ -65,7 +66,7 @@ Sonar Sensors
 > **distance_threshold_change_notification**:
 > **detect_threshold_min**:
 > **detect_threshold_max**:
-Dummy  
+
 Proximity Sensor  
 > **detect_in**:
 > **debounce_time**:
