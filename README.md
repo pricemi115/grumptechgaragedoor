@@ -70,7 +70,7 @@ Remark(s): Case sensitive.
 > **function**:
 Detection function for this sensor.  
 Value(s): String specifying the function. [OPEN, CLOSE]  
-Remark(s): Only the first 'OPEN' and 'CLOSE' sensor will be detected. A function other than 'OPEN' or 'CLOSE' will be ignored.
+Remark(s): Only the first _OPEN_ and _CLOSE_ sensor will be detected. A function other than _OPEN_ or _CLOSE_ will be ignored. Setting is Case Insensitive.
 ###### Sensor Configuration (config)
 A collection of configuration settings appropriate for the sensor classification specified.  
 
@@ -84,5 +84,15 @@ Sonar Sensors
 
 Proximity Sensor  
 > **detect_in**:
+The digital input that is used to detect the door state, as defined by the sensor **function**. Assumed to be a magnetic proximity switch or some other form of digital input switch.  
+Value(s): Any valid digital input resource on the RPi.
 > **debounce_time**:
+*(Optional)* The time, in seconds, to debounce the sensor input.  
+Value(s): Any number greater than or equal to 1.0  
+Default: 1.0 _second_
+Remark(s): This is the time required to see no further signal change after detecting the most recent signal state change.
 > **mode**:
+*(Optional)* Flag indicating if the switch is configured as _normally closed_ or _normally open_.  
+Value(s): [true, false]  
+Default: true  
+Remark(s): _true_ indicates _normally closed_  and _false_ indicates _normally open_  
