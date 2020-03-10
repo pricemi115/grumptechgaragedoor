@@ -30,7 +30,8 @@ const _GARAGE_SYSTEM_TOTAL_IDENTIFICATION_TIMEOUT    = 5000/*ms*/;
 const _GARAGE_SYSTEM_IDENTIFICATION_TOGGLE_TIMEOUT   =  100/*ms*/;
 
 /* GPIO Channel for the activity heartbeat indicator */
-const _DEFAULT_HEARTBEAT_CTRL  = 4/*GPIO4, assuming BCM Mode */;
+const _DEFAULT_HEARTBEAT_CTRL_BCM  = 4/*GPIO4, assuming BCM Mode */;
+const _DEFAULT_HEARTBEAT_CTRL_RPI  = 7/*GPIO4, assuming RPI Mode */;
 
 /* ========================================================================
    Description: Helper function to perform a delay
@@ -72,7 +73,7 @@ class GarageSystem extends EventEmitter {
     this._heartbeatIntervalId = undefined;
 
     // Configuration members.
-    this.heartbeatControlChannelId =_DEFAULT_HEARTBEAT_CTRL;
+    this.heartbeatControlChannelId = _DEFAULT_HEARTBEAT_CTRL_BCM;
 
     /* Create a function pointer for state change notifications. */
     this._bindDoorStateChange  = this.doorStateChange.bind(this);
@@ -149,12 +150,16 @@ class GarageSystem extends EventEmitter {
         case 'BCM':
         {
           gpioMode = _gpio.MODE_BCM;
+          // Update the default heartbeat channel assignment
+          this.heartbeatControlChannelId =_DEFAULT_HEARTBEAT_CTRL_BCM;
         }
         break;
 
         case 'RPI':
         {
           gpioMode = _gpio.MODE_RPI;
+          // Update the default heartbeat channel assignment
+          this.heartbeatControlChannelId =_DEFAULT_HEARTBEAT_CTRL_RPI;
         }
         break;
 

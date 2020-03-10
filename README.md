@@ -4,7 +4,7 @@ A plug-in component for [Homebridge](https://github.com/nfarina/homebridge "GitH
 
 To provide some measure of security, preventing unintended opening/closing of the doors, a _software_ lock will prevent control of the door. The lock is enabled by default and the state of the lock is not preserved between sessions.
 
-_GrumpTech Garage Door_ supports both a proximity switch and [sonar based sensors](https://lastminuteengineers.com/arduino-sr04-ultrasonic-sensor-tutorial/ "HC-SR04") to detect the state of the door.
+_GrumpTech Garage Door_ supports both a proximity switch and [sonar based](https://lastminuteengineers.com/arduino-sr04-ultrasonic-sensor-tutorial/ "HC-SR04") sensors to detect the state of the door.
 
 ## Installation
 This module is not intended to provide an extensible _API_ and, as such is best installed globally.
@@ -34,12 +34,12 @@ Settings used to define & configure the garage door system.
 *(Optional)* Specify the pin numbering system to use for identifying & accessing the digital input/output resources on the Raspberry Pi.  
 Value(s): [BCM, RPI]  
 Default: BCM  
-Refer to the [rpi-gpio](https://github.com/JamesBarwell/rpi-gpio.js, "rpi-gpio") node module for more documentation.  
+Refer to the [rpi-gpio](https://github.com/JamesBarwell/rpi-gpio.js "rpi-gpio") node module for more documentation.  
 *Note: Most development and testing was done using BCM mode*  
 > **heartbeat**:
 *(Optional)* The digital output used to toggle a heartbeat. Assumed to be connected to a LED.  
 Value(s): Any valid digital output resource on the RPi.  
-Default: 4 (BCM)
+Default: 4 (BCM) / 7 (RPI)
 *Must be specified according to the 'gpio_mode'.*
 #### Doors (doors)
 An array of doors in the system.  
@@ -85,7 +85,7 @@ The digital output used to initiate a sonar distance measurement.
 Values(s): Any valid digital output resource on the RPi.  
 > **echo_in**:
 The digital input that is used read the *echo* signal from the sensor, which is used to determine the distance to the object being measured.  
-Value(s): Any valid digital input resource on the RPi.
+Value(s): Any valid digital input resource on the RPi.  
 > **distance_threshold_change_notification**:
 *(Optional)* Distance threshold, specified in meters, which must be exceeded for the sensor to raise a *distance_changed* event.  
 Value(s): Any positive number greater than 0.0  

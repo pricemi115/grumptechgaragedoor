@@ -68,8 +68,6 @@ class GrumpyGarageSystemPlatform {
     this._config  = config;
     this._api     = api;
 
-    console.log(config);
-
     // Validate the supplied configuration.
     if (!this._config.hasOwnProperty('name')) {
       this._config['name'] = 'Unknown';
@@ -202,7 +200,7 @@ class GrumpyGarageSystemPlatform {
       // set "type" to platform if the plugin is trying to modify platforms section
       // set "replace" to true will let homebridge replace existing config in config.json
       // "config" is the data platform trying to save
-      callback(null, "platform", true, {"platform":PLATFORM_NAME, "otherConfig":"SomeData"});
+      callback(null, "platform", true, {"platform":PLATFORM_NAME});
       return;
     }
   }
