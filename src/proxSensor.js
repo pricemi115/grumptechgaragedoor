@@ -28,12 +28,6 @@ const _DEFAULT_PROX_SWITCH_MODE     = _PROX_SWITCH_MODE.NORMALLY_CLOSED;
 
 /* ProximitySwitchSensor represents Magnetic Proximity Switch Sensor.
    The sensor is monitored, and controlled by a RaspberryPi.
-
-   @event 'distance_changed' => function(oldDistance, newDistance, context) {}
-          Emitted when the sonar sensor detects a distance change that exceeds a change threshold.
-          oldDistance: the prior distance measured in meters.
-          newDistance: the updated distance measured in meters.
-          context:     reference to the instance of the object raising the event.
 */
 class ProximitySwitchSensor extends _sensorBase {
   /* ========================================================================

@@ -76,23 +76,43 @@ A collection of configuration settings appropriate for the sensor classification
 
 Sonar Sensors  
 > **polling_interval**:
+*(Optional)* Interval, specified in seconds, over which to measure distance from the sensor.  
+Value(s): Any positive number greater than or equal to 0.25 seconds.  
+Default: 5.0 seconds  
+Remarks: The minimum bound accounts for the maximum measurement cycle of 60ms-100ms and prevents overlapping trigger requests with the resulting echo signal.    
 > **trigger_out**:
+The digital output used to initiate a sonar distance measurement.  
+Values(s): Any valid digital output resource on the RPi.  
 > **echo_in**:
+The digital input that is used read the *echo* signal from the sensor, which is used to determine the distance to the object being measured.  
+Value(s): Any valid digital input resource on the RPi.
 > **distance_threshold_change_notification**:
+*(Optional)* Distance threshold, specified in meters, which must be exceeded for the sensor to raise a *distance_changed* event.  
+Value(s): Any positive number greater than 0.0  
+Default: 0.08 meters  
+Remark(s): The *distance_changed* event is not currently used in this application.  
 > **detect_threshold_min**:
+Minimum threshold, specified in meters, to define a measurement range for detecting the object. Used in conjunction with *detect_threshold_max*. Distance measurements outside of the defined range will result in the sensor indicating that the object is *not detected* .  
+Value(s): Any number greater than or equal to 0.0  
+Remark(s): Must be less than *detect_threshold_max*  
 > **detect_threshold_max**:
+Maximum threshold, specified in meters, to define a measurement range for detecting the object. Used in conjunction with *detect_threshold_min*. Distance measurements outside of the defined range will result in the sensor indicating that the object is *not detected* .  
+Value(s): Any number greater than 0.0  
+Remark(s): Must be greater than *detect_threshold_min*  
 
 Proximity Sensor  
 > **detect_in**:
-The digital input that is used to detect the door state, as defined by the sensor **function**. Assumed to be a magnetic proximity switch or some other form of digital input switch.  
+The digital input that is used to detect the door state, as defined by the sensor  
+> **function**:
+Assumed to be a magnetic proximity switch or some other form of digital input switch.  
 Value(s): Any valid digital input resource on the RPi.  
 > **debounce_time**:
 *(Optional)* The time, in seconds, to debounce the sensor input.  
 Value(s): Any number greater than or equal to 1.0  
-Default: 1.0 _second_
+Default: 1.0 _second_  
 Remark(s): This is the time required to see no further signal change after detecting the most recent signal state change.  
 > **mode**:
-*(Optional)* Flag indicating if the switch is configured as _normally closed_ or _normally open_.  
+*(Optional)* Flag indicating if the switch is configured as _normally closed_ or _normally open_ .  
 Value(s): [true, false]  
 Default: true  
 Remark(s): _true_ indicates _normally closed_  and _false_ indicates _normally open_  

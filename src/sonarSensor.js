@@ -77,7 +77,7 @@ class SonarSensor extends _sensorBase {
     /* Polling interval is optional. */
     this._sonarPingInterval = (configuration.hasOwnProperty('polling_interval') ? configuration.polling_interval : _DEFAULT_SONAR_POLLING_INTERVAL) * 1000.0/* milliseconds / second */;
     /* Distance threshold change notification is optional */
-    this._distanceThreshold = (configuration.hasOwnProperty('polling_interval') ? configuration.distance_threshold_change_notification : _DISTANCE_THRESHOLD_FOR_CHANGE_NOTIFICATION);
+    this._distanceThreshold = (configuration.hasOwnProperty('distance_threshold_change_notification') ? configuration.distance_threshold_change_notification : _DISTANCE_THRESHOLD_FOR_CHANGE_NOTIFICATION);
     this._gpioTriggerOut    = configuration.trigger_out;
     this._gpioEchoIn        = configuration.echo_in;
     this._detectMin         = configuration.detect_threshold_min;
@@ -399,11 +399,11 @@ class SonarSensor extends _sensorBase {
    ======================================================================== */
   static ValidateConfiguration(configuration) {
     const configValid = ( (!configuration.hasOwnProperty('polling_interval')                        || ((typeof(configuration.polling_interval)                        === 'number')  && (configuration.polling_interval >= _MINIMUM_SONAR_POLLING_INTERVAL)))  && /* Optional configuration item */
-                          (!configuration.hasOwnProperty('distance_threshold_change_notification')  ||  (typeof(configuration.distance_threshold_change_notification)  === 'number'))                                                                           && /* Optional configuration item */
+                          (!configuration.hasOwnProperty('distance_threshold_change_notification')  || ((typeof(configuration.distance_threshold_change_notification)  === 'number')  && (configuration.distance_threshold_change_notification > 0.0)))         && /* Optional configuration item */
                           ( configuration.hasOwnProperty('trigger_out')                             &&  (typeof(configuration.trigger_out)                             === 'number'))                                                                           &&
                           ( configuration.hasOwnProperty('echo_in')                                 &&  (typeof(configuration.echo_in)                                 === 'number'))                                                                           &&
-                          ( configuration.hasOwnProperty('detect_threshold_min')                    &&  (typeof(configuration.detect_threshold_min)                    === 'number'))                                                                           &&
-                          ( configuration.hasOwnProperty('detect_threshold_max')                    &&  (typeof(configuration.detect_threshold_max)                    === 'number'))                                                                           &&
+                          ( configuration.hasOwnProperty('detect_threshold_min')                    &&  (typeof(configuration.detect_threshold_min)                    === 'number')  && (configuration.detect_threshold_min >= 0.0))                           &&
+                          ( configuration.hasOwnProperty('detect_threshold_max')                    &&  (typeof(configuration.detect_threshold_max)                    === 'number')  && (configuration.detect_threshold_max >  0.0))                           &&
                           (configuration.detect_threshold_max > configuration.detect_threshold_min)                                                                                                                                                               );
 
     if (!configValid) {
