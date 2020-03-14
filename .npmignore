@@ -1,0 +1,9 @@
+# The following entries will prevent git-tracked files
+# from being deployed
+
+# Debug Folder
+debug/
+
+# Source Files
+src/
+rollup.config.js

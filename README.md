@@ -7,9 +7,9 @@ To provide some measure of security, preventing unintended opening/closing of th
 _GrumpTech Garage Door_ supports both a proximity switch and [sonar based](https://lastminuteengineers.com/arduino-sr04-ultrasonic-sensor-tutorial/ "HC-SR04") sensors to detect the state of the door.
 
 ## Installation
-This module is not intended to provide an extensible _API_ and, as such is best installed globally.
+This module is not intended to provide an extensible _API_.
 
-> npm install -g grumptechgaragedoor
+> npm i homebridge-grumptechgaragedoor
 
 ##  Configuration
 The plug-in allows for user specified configuration of the digital input/output lines to use as well as the type of sensors to use for detecting the door. The *config_sample.json* file located in *./config* shows an example of many of the user configurable settings.
@@ -54,7 +54,7 @@ Key | Description | Value(s) | Default(s) | Remark(s)
 `class` | Classification/Type for this sensor | SonarSensor, ProximitySwitchSensor | | Case sensitive
 `function` | Detection function for this sensor | OPEN, CLOSE | | Only the first _OPEN_ and _CLOSE_ sensor will be detected. A function other than _OPEN_ or _CLOSE_ will be ignored.<br /><br /> Case Insensitive.
 
-#### Sensor Configuration (config)
+#### Sensor Configuration<br />(platforms/platform/system/doors/detect_sensors/config)
 A collection of configuration settings appropriate for the sensor classification specified.  
 
 Sonar Sensors  
