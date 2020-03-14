@@ -54,7 +54,7 @@ Key | Description | Value(s) | Default(s) | Remark(s)
 `class` | Classification/Type for this sensor | SonarSensor, ProximitySwitchSensor | | Case sensitive
 `function` | Detection function for this sensor | OPEN, CLOSE | | Only the first _OPEN_ and _CLOSE_ sensor will be detected. A function other than _OPEN_ or _CLOSE_ will be ignored.<br /><br /> Case Insensitive.
 
-#### Sensor Configuration (config)
+#### Sensor Configuration<br />(platforms/platform/system/doors/detect_sensors/config)
 A collection of configuration settings appropriate for the sensor classification specified.  
 
 Sonar Sensors  
