@@ -3,4 +3,4 @@
 
 Version | Release Date | Comments
 :------ | :----------: | :-------
-1.0.2   | 2020-MAR-14  | Initial release to npm
+1.0.3   | 2020-MAR-14  | Initial release to npm
