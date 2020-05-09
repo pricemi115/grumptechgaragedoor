@@ -8,9 +8,9 @@
 'use strict';
 
 // External dependencies and imports.
-const _gpio       = require('../node_modules/rpi-gpio');
-const _gpiop      = _gpio.promise;
-const _debug      = require('debug')('proxSensor');
+const _debug  = require('debug')('proxSensor');
+const _gpio   = require('rpi-gpio');
+const _gpiop  = _gpio.promise;
 
 // Internal dependencies
 import _sensorBase, * as modSensorBase from './sensorBase.js';

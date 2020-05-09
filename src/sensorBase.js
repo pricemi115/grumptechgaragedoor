@@ -7,8 +7,8 @@
 'use strict';
 
 // External dependencies and imports.
-const EventEmitter  = require('events').EventEmitter;
-const _debug        = require('debug')('sensorBase');
+const _debug = require('debug')('sensorBase');
+import { EventEmitter } from 'events';
 
 /* Enumeration for Sonar Results */
 const SENSOR_RESULT = {

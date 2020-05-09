@@ -8,10 +8,10 @@
 'use strict';
 
 // External dependencies and imports.
-const EventEmitter  = require('events').EventEmitter;
-const _gpio         = require('../node_modules/rpi-gpio');
-const _gpiop        = _gpio.promise;
-const _debug        = require('debug')('doorCntrl');
+const _debug  = require('debug')('doorCntrl');
+const _gpio   = require('rpi-gpio');
+import { EventEmitter } from 'events';
+const _gpiop  = _gpio.promise;
 
 // Internal dependencies
 import * as modSensorCommon from './sensorBase.js';
@@ -86,6 +86,9 @@ class DoorController extends EventEmitter {
                           (configuration.hasOwnProperty('state_indicator')       && (typeof(configuration.state_indicator)       === 'number'))                                               &&
                           (configuration.hasOwnProperty('control_request')       && (typeof(configuration.control_request)       === 'number'))                                               &&
                           (configuration.hasOwnProperty('manual_control_reqest') && (typeof(configuration.manual_control_reqest) === 'number'))                                               &&
+                          // soft_locked is an optional setting.
+                          ((configuration.hasOwnProperty('soft_locked')           && (typeof(configuration.soft_locked)           === 'boolean')) ||
+                           (!configuration.hasOwnProperty('soft_locked')))                                                                                                                    &&
                           (configuration.hasOwnProperty('detect_sensors')        && (typeof(configuration.detect_sensors)        === 'object') && (configuration.detect_sensors.length >= 2)) &&
                           (this._validateDetectionSensorConfig(configuration.detect_sensors))                                                                                                   );
     if (!configValid) {
@@ -109,8 +112,8 @@ class DoorController extends EventEmitter {
     this._currentDoorState          = DOOR_STATE.UNKNOWN;
     /* Target Door Open/Close Staus */
     this._targetDoorState           = DOOR_STATE.UNKNOWN;
-    /* Soft-Lock State */
-    this._doorLocked                = false;
+    /* Soft-Lock State - Defaults to locked if not specified */
+    this._doorLocked                = (configuration.hasOwnProperty('soft_locked') ? configuration.soft_locked : true );
     /* Door Control Switch Debouce Timer Id */
     this._debounceTimerIdDoorCntrl  = undefined;
     /* Door Activation Watchdog Timer Id */
@@ -144,8 +147,8 @@ class DoorController extends EventEmitter {
     _gpio.off( 'change', this._myStateChangeCB );
 
     // Unregister for the sensor events.
-    this._openSensor.off(   'result_changed',   this._mySensorResultChangedCB);
-    this._closedSensor.off( 'result_changed',   this._mySensorResultChangedCB);
+    this._openSensor.removeListener(   'result_changed',   this._mySensorResultChangedCB);
+    this._closedSensor.removeListener( 'result_changed',   this._mySensorResultChangedCB);
 
     // Kill the detection sensors.
     this._openSensor.Terminate();

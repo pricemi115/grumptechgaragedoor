@@ -2,7 +2,7 @@
 ----------------------
 A plug-in component for [Homebridge](https://github.com/nfarina/homebridge "GitHub link") that provides control and status of one or more garage doors using a Raspberry PI. _(some assembly required)_
 
-To provide some measure of security, preventing unintended opening/closing of the doors, a _software_ lock will prevent control of the door. The lock is enabled by default and the state of the lock is not preserved between sessions.
+To provide some measure of security, preventing unintended opening/closing of the doors, a _software_ lock will prevent control of the door. The lock is enabled by default and the state of the lock is not preserved between sessions. (Refer to the _Limitations and Known Issues_ section below)
 
 _GrumpTech Garage Door_ supports both a proximity switch and [sonar based](https://lastminuteengineers.com/arduino-sr04-ultrasonic-sensor-tutorial/ "HC-SR04") sensors to detect the state of the door.
 
@@ -24,8 +24,8 @@ Settings for the GrumpTech Garage Door platform.
 
 Key | Description | Value(s) | Default(s) | Remark(s)
 :--- | :----------- | :-------- | :---------- | :---------
-`platform` | Identifier for the name of the Homebridge platform.  | Any valid non-null string | GrumpTechGarageSystemPlatform |Must match the text in the *config_info/platform* entry of the package.json file.<br /><br />*Recommended to leave as-is.*
-`name` | Identifier for the name of the Homebridge plug-in. | Any valid non-null string | homebridge-GrumpTechGarageSystem | Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file.<br /><br />*Recommended to leave as-is.*
+`platform` | Identifier for the name of the Homebridge platform.  | Any valid non-null string | GrumpTechGarageSystemPlatform |Must match the text in the *config_info/platform* entry of the package.json file.<br /><br />*Recommended to leave as-is.<br/>Rebuild required if changed.*
+`name` | Identifier for the name of the Homebridge plug-in. | Any valid non-null string | homebridge-GrumpTechGarageSystem | Identifier for the name of the Homebridge plug-in. Must match the text in the *config_info/plugin* entry of the package.json file.<br /><br/>*Recommended to leave as-is.<br/>Rebuild required if changed.*
 
 #### System<br />(platforms/platform/system)
 Settings used to define & configure the garage door system.
@@ -44,6 +44,7 @@ Key | Description | Value(s) | Default(s) | Remark(s)
 `state_indicator` | The digital output used to show the state of the door | Any valid digital output resource on the RPi | | Assumed to be connected to a LED or other indicator.<br /><br />*Must be specified according to the 'gpio_mode'.*
 `control_request` | The digital output used to control a relay that is used to initiate the door open/close operation | Any valid digital output resource on the RPi | | *Must be specified according to the 'gpio_mode'.*
 `manual_control_reqest` | The digital input that is used to initiate a door open/close operation from direct hardware access. | Any valid digital input resource on the RPi | | Assumed to be a push button or some other form of digital input control.<br /><br />*Must be specified according to the 'gpio_mode'.*
+`soft_locked` | The initial state of the software lock. | true, false | true | _(Optional)_<br /><br />_true_ indicates that the software lock default to the locked state.<br /><br />Refer to the _Limitations and Known Issues_ section
 
 #### Detection Sensors<br />(platforms/platform/system/doors/detect_sensors)
 An array of sensors used to detect the state of the door. The plug-in only functionally supports two active sensors. One sensor to detect the door opening and another to detect closing. Additional sensors can be specified even though not active, which can be helpful during development & debug.
@@ -75,3 +76,7 @@ Key | Description | Value(s) | Default(s) | Remark(s)
 `detect_in` | The digital input that is used to detect the door state, as defined by the sensor | Any valid digital input resource on the RPi | | *Must be specified according to the 'gpio_mode'.*
 `debounce_time` | *(Optional)* The time, in seconds, to debounce the sensor input | Any number greater than or equal to 1.0 | 1.0 *second* | This is the time required to see no further signal change after detecting the most recent signal state change
 `mode` | *(Optional)* Flag indicating if the switch is configured as _normally closed_ or _normally open_ | true, false | true | _true_ indicates _normally closed_  and _false_ indicates _normally open_
+
+## Limitations and Known Issues
+Some applications may not properly render these accessories by limiting the accessory characteristics presented to the user. Notably, the default Apple Home application for iOS and macOS is among these. At the present time, it is recommended that the Home+ application for iOS by Matthias Hochgatterer (https://apps.apple.com/us/app/home-4/id995994352) be used to control these accessories.  
+* Software Lock: The Apple Home application for both iOS and macOS does not present the user with the ability to control the lock. To work around this problem, the user may configure the plugin to set the default lock state to _unlocked_. However, the recommended solution is to use the Home+ application to control the plugin.  

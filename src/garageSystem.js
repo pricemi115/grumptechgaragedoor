@@ -8,10 +8,10 @@
 'use strict';
 
 // External dependencies and imports.
-const EventEmitter  = require('events').EventEmitter;
-const _gpio         = require('../node_modules/rpi-gpio');
-const _gpiop        = _gpio.promise;
-const _debug        = require('debug')('garageSystem');
+const _debug  = require('debug')('garageSystem');
+const _gpio   = require('rpi-gpio');
+import { EventEmitter } from 'events';
+const _gpiop  = _gpio.promise;
 
 // Internal dependencies
 import _doorController, * as modDoorCntrl from './doorCntrl.js';

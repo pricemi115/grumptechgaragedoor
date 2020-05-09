@@ -1,6 +1,6 @@
 {
   "name": "homebridge-grumptechgaragedoor",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Homebridge platform plugin for Grumpy's Garage Door: https://github.com/pricemi15/grumptechgaragedoor",
   "license": "MIT",
   "keywords": [
@@ -11,9 +11,12 @@
     "gpio"
   ],
   "config_info": {
-    "remarks": "The 'plugin' and 'platform' names MUST match the names called out in the 'platforms' section of the active config.json file.",
+    "remarks": [
+      "The 'plugin' and 'platform' names MUST match the names called out in the 'platforms' section of the active config.json file.",
+      "If these values are changed, the module will need to be rebuilt. Run 'npm run build'."
+    ],
     "plugin": "homebridge-GrumpTechGarageSystem",
-    "platfrom": "GrumpTechGarageSystemPlatform"
+    "platform": "GrumpTechGarageSystemPlatform"
   },
   "repository": {
     "type": "git",
@@ -32,12 +35,18 @@
     "config/*"
   ],
   "dependencies": {
-    "rpi-gpio": "^2.1.5"
+    "debug": "^4.1.1",
+    "rpi-gpio": "^2.1.5",
+    "supports-color": "^7.1.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.0.2",
-    "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
-    "rollup": "^1.31.1"
+    "@rollup/plugin-inject": "^4.0.1",
+    "@rollup/plugin-json": "^4.0.3",
+    "rollup": "^1.32.1",
+    "rollup-plugin-node-polyfills": "^0.2.1"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rollup -c rollup.config.js"
   }
 }

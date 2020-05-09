@@ -6,7 +6,7 @@
     "pin": "000-00-000"
   },
 
-  "description": "Platform for the Grumpy's Garage Door System",
+  "description": "Platform for the GrumpTech Garage Door System",
 
   "platforms": [
     {
@@ -17,10 +17,11 @@
         "heartbeat": 4,
         "doors" : [
           {
-            "name": "EvilDoor",
+            "name": "SampleDoor",
             "state_indicator" : 3,
             "control_request" : 5,
             "manual_control_reqest" : 6,
+            "soft_locked" : true,
             "detect_sensors" : [
               {
                 "id" : "Opening sensor",

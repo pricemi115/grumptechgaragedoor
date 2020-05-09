@@ -6,13 +6,16 @@
 'use strict';
 
 // External dependencies and imports.
-const _debug        = require('debug')('homebridge-controller');
-const PLUGIN_VER    = require('../package.json').version;
-const PLUGIN_NAME   = require('../package.json').config_info.plugin;
-const PLATFORM_NAME = require('../package.json').config_info.platfrom;
+const _debug = require('debug')('homebridge-controller');
+import { version as PLUGIN_VER }      from '../package.json';
+import { config_info as CONFIG_INFO } from '../package.json';
 
 // Internal dependencies
 import _garageSystem from './garageSystem.js';
+
+// Configuration constants.
+const PLUGIN_NAME   = CONFIG_INFO.plugin;
+const PLATFORM_NAME = CONFIG_INFO.platform;
 
 // Accessory must be created from PlatformAccessory Constructor
 let _PlatformAccessory  = undefined;
@@ -29,7 +32,7 @@ let _UUIDGen            = undefined;
 
    Return:      None
    ======================================================================== */
-module.exports.default = (homebridge) => {
+export default (homebridge) => {
   _debug(`homebridge API version: v${homebridge.version}`);
 
   // Accessory must be created from PlatformAccessory Constructor
@@ -83,11 +86,6 @@ class GrumpyGarageSystemPlatform {
 
     // Underlying engine
     this._garageController = undefined;
-
-    /* My Services */
-    this._lockOutService = undefined;
-
-    this._requestServer = undefined;
 
     /* Bind Handlers */
     this._bindDoInitialization   = this._doInitialization.bind(this);
@@ -773,21 +771,25 @@ class GrumpyGarageSystemPlatform {
           this._log(`Unable to get GarageDoorOpener 'Name' characteristic !!`);
         }
 
+        // Get the default lock state (Bug#11)
+        const defaultTargetLockState  = (this._garageController.GetDoorLocked(doorName) ? _Characteristic.LockTargetState.SECURED   : _Characteristic.LockTargetState.UNSECURED);
+        const defaultLockState        = (this._garageController.GetDoorLocked(doorName) ? _Characteristic.LockCurrentState.SECURED  : _Characteristic.LockCurrentState.UNSECURED);
+
         /* Target Lock State (Optional) */
         const targetLockStateCharateristic = doorService.getCharacteristic(_Characteristic.LockTargetState);
         // Register for the 'change'
         targetLockStateCharateristic.on('change', this._changeTargetLockState.bind(this, {key:doorName}));
-        // Ensure that the target lock state always defaults to 'locked'
+        // Ensure that the target lock state always defaults as specified
         targetLockStateCharateristic.updateValue(_Characteristic.LockTargetState.SECURED);
+        targetLockStateCharateristic.updateValue(defaultTargetLockState);
 
         /* Current Lock State (Optional) */
         const currentLockStateCharacteristic = doorService.getCharacteristic(_Characteristic.LockCurrentState);
         // Register for the 'change'. Needed to track/cache the current lock state.
         currentLockStateCharacteristic.on('change', this._changeCurrentLockState.bind(this, {key:doorName}));
-        // Ensure that the current lock state always defaults to 'locked'
-        const currentLockedVal = (this._garageController.GetDoorLocked(doorName) ? _Characteristic.LockCurrentState.SECURED : _Characteristic.LockCurrentState.UNSECURED);
-        currentLockStateCharacteristic.updateValue(currentLockedVal);
+        // Ensure that the current lock state always defaults as specified.
         currentLockStateCharacteristic.updateValue(_Characteristic.LockCurrentState.SECURED);
+        currentLockStateCharacteristic.updateValue(defaultLockState);
 
         /* Current Door State characteristic */
         const tmpCurrDoorChar = new _Characteristic.CurrentDoorState;
