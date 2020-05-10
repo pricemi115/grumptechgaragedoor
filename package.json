@@ -1,6 +1,6 @@
 {
   "name": "homebridge-grumptechgaragedoor",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Homebridge platform plugin for Grumpy's Garage Door: https://github.com/pricemi15/grumptechgaragedoor",
   "license": "MIT",
   "keywords": [
