@@ -46,7 +46,7 @@
     "rollup-plugin-node-polyfills": "^0.2.1"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "build": "rollup -c rollup.config.js"
   }
 }
