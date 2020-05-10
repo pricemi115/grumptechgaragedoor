@@ -17,6 +17,8 @@ import _garageSystem from './garageSystem.js';
 const PLUGIN_NAME   = CONFIG_INFO.plugin;
 const PLATFORM_NAME = CONFIG_INFO.platform;
 
+const SHORT_DELAY_TO_SYNC_UI  = 100/*milliseconds*/;
+
 // Accessory must be created from PlatformAccessory Constructor
 let _PlatformAccessory  = undefined;
 // Service and Characteristic are from hap-nodejs
@@ -545,24 +547,23 @@ class GrumpyGarageSystemPlatform {
       // Translate the state into a characteristic values.
       const allowableTargetDoorCharacteristicVal   = ((doorState === 'OPEN') ? _Characteristic.TargetDoorState.OPEN : _Characteristic.TargetDoorState.CLOSED);
 
+      // Is the door prohibited from operating? i.e. Is it locked?
       if ((doorLocked === true) &&
           (newValue !== this._targetDoorState) &&
           (newValue !== allowableTargetDoorCharacteristicVal)) {
-        // Lock is not unsecured.
-        error = new Error(`lock is not unsecured`);
+        // Lock is not unsecured. This is *not* a critical error, however. Therefore we will simply put the setting back.
+        // The Opening/Closing operation itself will be blockd within the door controller.
+        // The goal here is to simply keep the UI in sync.
         _debug(`_validateTargetDoorStateChange: ${name} Lock is not unsecured (${doorLocked})`);
-      }
 
-      // Was an error encountered?
-      if (error != null) {
-        // Yes. Reset the target door state.
         const charTargetDoorState = this._findCharacteristic(name, _Service.GarageDoorOpener, _Characteristic.TargetDoorState);
         if (charTargetDoorState instanceof _Characteristic) {
-          // Reset to the cached value, but do so asynchronously.
+          // Reset to the cached value, but do so asynchronously, providing sufficient time for the user interface to
+          // observe the change so that the remote data remains correct.
           setTimeout((resetVal, characteristic) => {
             _debug(`_validateTargetDoorStateChange: resetting target door state to (${resetVal})`);
             characteristic.updateValue(resetVal);
-          }, 10, this._targetDoorState, charTargetDoorState);
+          }, SHORT_DELAY_TO_SYNC_UI, this._targetDoorState, charTargetDoorState);
         }
       }
     }
